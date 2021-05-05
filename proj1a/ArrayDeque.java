@@ -36,7 +36,7 @@ public class ArrayDeque <T>{
             resizing(size*2);
         }
         if(size>=16 && usage<0.25){
-            resizing(items.length/2);
+            resizing(size);
         }
     }
     public void addFirst(T item) {
@@ -135,7 +135,6 @@ public class ArrayDeque <T>{
         }
         return items[(first+index)%items.length];
     }
-
 }
 
 
