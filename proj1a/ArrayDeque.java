@@ -36,7 +36,7 @@ public class ArrayDeque <T>{
             resizing(size*2);
         }
         if(size>=16 && usage<0.25){
-            resizing(size/2);
+            resizing(items.length/2);
         }
     }
     public void addFirst(T item) {
@@ -136,19 +136,6 @@ public class ArrayDeque <T>{
         return items[(first+index)%items.length];
     }
 
-    public static void main(String[] args) {
-        ArrayDeque<Integer> a =new ArrayDeque<>();
-        a.addLast(0);
-        a.addLast(1);
-        a.addLast(2);
-        a.size();
-        a.addFirst(4);
-        a.addFirst(5);
-        a.addFirst(6);
-        a.addFirst(7);
-        a.addFirst(8);
-        a.addLast(9);
-    }
 }
 
 
