@@ -20,7 +20,7 @@ public class ArrayDeque <T>{
             System.arraycopy(items, first, a, 0, items.length - first);
             System.arraycopy(items, 0, a, items.length - first, last + 1);
         }
-        if(size!=1){
+        else if(size!=1){
             System.arraycopy(items,first,a,0,size);
         }
         else{
@@ -138,14 +138,16 @@ public class ArrayDeque <T>{
 
     public static void main(String[] args) {
         ArrayDeque<Integer> a =new ArrayDeque<>();
-        for(int i=0;i<9;++i){
-            a.addLast(i);
-        }
-        a.printDeque();
-        for(int i=0;i<9;++i){
-            a.removeFirst();
-        }
-        a.printDeque();
+        a.addLast(0);
+        a.addLast(1);
+        a.addLast(2);
+        a.size();
+        a.addFirst(4);
+        a.addFirst(5);
+        a.addFirst(6);
+        a.addFirst(7);
+        a.addFirst(8);
+        a.addLast(9);
     }
 }
 
