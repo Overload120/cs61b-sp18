@@ -24,15 +24,7 @@ public class LinkedListDeque<T> {
         sentinel.next=sentinel;
         sentinel.prev=sentinel;
         }
-    /** Constructs the LinkedListDeque class with another deque as a parameter. */
-    public LinkedListDeque(LinkedListDeque other){
-        LinkedListDeque<T> a=new LinkedListDeque<>();
-        Node p=other.sentinel.next;
-        while(p!=other.sentinel){
-            addFirst(p.item);
-            p=p.next;
-        }
-    }
+
     /** Adds an element of class T to the front of the deque. */
     public void addFirst(T a){
         Node p=sentinel.next;
@@ -65,6 +57,9 @@ public class LinkedListDeque<T> {
     }
     /** Removes the first element in the deque. */
     public T removeFirst(){
+        if(isEmpty()){
+            return null;
+        }
         T a=sentinel.next.item;
         sentinel.next.next.prev=sentinel;
         sentinel.next=sentinel.next.next;
@@ -73,6 +68,9 @@ public class LinkedListDeque<T> {
     }
     /** Removes the last element in the deque. */
     public T removeLast(){
+        if(isEmpty()){
+            return null;
+        }
         T a=sentinel.prev.item;
         sentinel.prev.prev.next=sentinel;
         sentinel.prev=sentinel.prev.prev;

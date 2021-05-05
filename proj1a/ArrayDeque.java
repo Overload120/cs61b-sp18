@@ -20,11 +20,14 @@ public class ArrayDeque <T>{
             System.arraycopy(items, first, a, 0, items.length - first);
             System.arraycopy(items, 0, a, items.length - first, last + 1);
         }
-        else{
+        if(size!=1){
             System.arraycopy(items,first,a,0,size);
         }
+        else{
+            a[0]=items[first];
+        }
         first=0;
-        last=items.length-1;
+        last=size-1;
         items=a;
         usage=(double)size/items.length;
     }
@@ -94,6 +97,11 @@ public class ArrayDeque <T>{
             return null;
         }
         T a=items[first];
+        if(size==1){
+            size--;
+            usage=(double)size/items.length;
+            return a;
+        }
         first=(first+1)%items.length;
         size--;
         usage=(double)size/items.length;
@@ -105,6 +113,11 @@ public class ArrayDeque <T>{
             return null;
         }
         T a=items[last];
+        if(size==1){
+            size--;
+            usage=(double)size/items.length;
+            return a;
+        }
         if(last==0){
             last=items.length-1;
         }
@@ -121,6 +134,18 @@ public class ArrayDeque <T>{
             return null;
         }
         return items[(first+index)%items.length];
+    }
+
+    public static void main(String[] args) {
+        ArrayDeque<Integer> a =new ArrayDeque<>();
+        for(int i=0;i<9;++i){
+            a.addLast(i);
+        }
+        a.printDeque();
+        for(int i=0;i<9;++i){
+            a.removeFirst();
+        }
+        a.printDeque();
     }
 }
 
