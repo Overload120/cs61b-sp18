@@ -33,7 +33,7 @@ public class ArrayDeque <T>{
     }
     private void checkUsage(){
         if(size==items.length){
-            resizing(size*2);
+            resizing(size+size/2);
         }
         if(size>=16 && usage<0.25){
             resizing(size);
@@ -135,6 +135,7 @@ public class ArrayDeque <T>{
         }
         return items[(first+index)%items.length];
     }
+
 }
 
 
