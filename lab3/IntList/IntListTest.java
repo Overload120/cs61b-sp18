@@ -33,7 +33,7 @@ public class IntListTest {
         IntList l3=IntList.of();
         IntList l4=l1;
         org.junit.Assert.assertEquals(IntList.reverse(l1),l2);
-        org.junit.Assert.assertEquals(l1,l4);
+        org.junit.Assert.assertNotEquals(IntList.reverse(l1),l4);
         org.junit.Assert.assertEquals(IntList.reverse(l3),l3);
     }
     /**
