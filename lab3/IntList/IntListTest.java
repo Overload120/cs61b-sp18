@@ -26,7 +26,16 @@ public class IntListTest {
         IntList.dSquareList(L);
         assertEquals(IntList.of(1, 4, 9), L);
     }
-
+    @Test
+    public void testReverse(){
+        IntList l1=IntList.of(1,2,3,4);
+        IntList l2=IntList.of(4,3,2,1);
+        IntList l3=IntList.of();
+        IntList l4=l1;
+        org.junit.Assert.assertEquals(IntList.reverse(l1),l2);
+        org.junit.Assert.assertEquals(l1,l4);
+        org.junit.Assert.assertEquals(IntList.reverse(l3),l3);
+    }
     /**
      * Do not use the new keyword in your tests. You can create
      * lists using the handy IntList.of method.
