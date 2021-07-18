@@ -79,6 +79,17 @@ public class IntList {
      * Returns a list consisting of the elements of A followed by the
      * *  elements of B.  May modify items of A. Don't use 'new'.
      */
+    public static IntList reverse(IntList A){
+        IntList temp1=null;
+        IntList x=A;
+        while (x!=null){
+            IntList temp2=x.rest;
+            x.rest=temp1;
+            temp1=x;
+            x=temp2;
+        }
+        return temp1;
+    }
 
     public static IntList dcatenate(IntList A, IntList B) {
         //TODO:  fill in method
@@ -252,31 +263,5 @@ public class IntList {
      * This method is destructive. If given null
      * as an input, returns null.
      */
-    public static IntList reverse(IntList A) {
-        int size = 1;
-        int currentlocation = 0;
-        if (A == null) {
-            return null;
-        }
-        IntList p1 = A;
-        while (p1.rest != null) {
-            p1 = p1.rest;
-            size++;
-        }
-        int[] a = new int[size];
-        p1 = A;
-        while (p1 != null) {
-            a[size - 1] = p1.first;
-            p1 = p1.rest;
-            size--;
-        }
-        IntList B = new IntList(a[0], null);
-        IntList p2;
-        int k;
-        for (k = 1, p2 = B; k < a.length; k += 1, p2 = p2.rest) {
-            p2.rest = new IntList(a[k], null);
-        }
-        return B;
-    }
 }
 
