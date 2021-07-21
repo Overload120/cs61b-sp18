@@ -27,7 +27,7 @@ public class IntListTest {
         assertEquals(IntList.of(1, 4, 9), L);
     }
     @Test
-    public void testReverse(){
+    public void testReverse() {
         IntList l1=IntList.of(1,2,3,4);
         IntList l2=IntList.of(4,3,2,1);
         IntList l3=IntList.of();
