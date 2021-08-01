@@ -30,10 +30,10 @@ public class ArrayRingBuffer<T>  extends AbstractBoundedQueue<T>{
         rb=(T[]) new Object[capacity];
     }
 
-    private class ArrayIterator implements Iterator<T>{
+    public class ArrayIterator implements Iterator<T>{
         int currentPos;
         public ArrayIterator(){
-            currentPos=first;
+            currentPos=first-1;
         }
         @Override
         public boolean hasNext() {
@@ -96,6 +96,9 @@ public class ArrayRingBuffer<T>  extends AbstractBoundedQueue<T>{
      */
     public T peek() {
         // TODO: Return the first item. None of your instance variables should change.
+        if(fillCount==0){
+            throw new RuntimeException("Ring buffer underflow");
+        }
         return rb[first];
     }
 
