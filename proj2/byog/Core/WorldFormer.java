@@ -139,9 +139,13 @@ public class WorldFormer {
     private static void formRandomRooms(Random random,TETile[][] world){
         Room[] arr=RandomRooms(random,world);
         int randomNum;
-        for(int i=0;i<arr.length;i+=1){
+        formRoomWithEdge(arr[0],world);
+        for(int i=1;i<arr.length;i+=1){
             formRoomWithEdge(arr[i],world);
-            if(arr[i].timesConnect>3){
+            connect(random,arr[0],arr[i],world);
+            arr[0].timesConnect+=1;
+            arr[i].timesConnect+=1;
+            if(arr[i].timesConnect>1){
                 continue;
             }
             randomNum=RandomUtils.uniform(random,i,arr.length);
@@ -149,8 +153,8 @@ public class WorldFormer {
             arr[i].timesConnect+=1;
             arr[randomNum].timesConnect+=1;
         }
-        for(int i=arr.length-1;i>=0;i-=1){
-            if(arr[i].timesConnect>3){
+        for(int i=arr.length-1;i>0;i-=1){
+            if(arr[i].timesConnect>1){
                 continue;
             }
             randomNum=-1*RandomUtils.uniform(random,-1*i,1);
@@ -234,6 +238,17 @@ public class WorldFormer {
         formRandomPlayer(random,world);
         formRandomDoor(random,world);
         return world;
+    }
+
+    public static void main(String[] args) {
+        TERenderer ter=new TERenderer();
+        ter.initialize(80, 30);
+
+        // initialize tiles
+        Random random=new Random(4098);
+        TETile[][] world = createWorld(80,30,random);
+
+        ter.renderFrame(world);
     }
 }
 

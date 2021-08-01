@@ -7,7 +7,7 @@ import byog.TileEngine.Tileset;
 public class Position {
     private int x;
     private int y;
-    public Position(int xPos,int yPos){
+    Position(int xPos, int yPos){
         x=xPos;
         y=yPos;
     }
@@ -29,7 +29,7 @@ public class Position {
     public Position getDown(){
         return new Position(x,y-1);
     }
-    public boolean isExistAround(TETile t,TETile[][] world){
+    boolean isExistAround(TETile t, TETile[][] world){
         boolean xRange=x>0&&x<world.length-1;
         boolean yRange=y>0&&y<world[0].length-1;
         if(x==world.length-1 && y==world[0].length-1){
@@ -55,7 +55,7 @@ public class Position {
         }
             return false;
     }
-    public int wallsCount(TETile[][] world){
+    private int wallsCount(TETile[][] world){
         if(world[x][y]!= Tileset.FLOOR){
             return -1;
         }
@@ -74,10 +74,10 @@ public class Position {
         }
         return count;
     }
-    public boolean isOnEdge(TETile[][] world){
+    boolean isOnEdge(TETile[][] world){
         return x==world.length-1 || x==0 ||y==world[0].length-1 ||y==0;
     }
-    public boolean isDeadEnd(TETile[][] world){
+    boolean isDeadEnd(TETile[][] world){
         return wallsCount(world)>=3;
     }
 }
