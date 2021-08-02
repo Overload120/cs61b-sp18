@@ -9,19 +9,20 @@ public class GuitarHeroLite {
         synthesizer.GuitarString stringC = new synthesizer.GuitarString(CONCERT_C);
 
         while (true) {
-
+            double sample=0;
             /* check if the user has typed a key; if so, process it */
             if (StdDraw.hasNextKeyTyped()) {
                 char key = StdDraw.nextKeyTyped();
                 if (key == 'a') {
                     stringA.pluck();
+
                 } else if (key == 'c') {
                     stringC.pluck();
                 }
             }
 
         /* compute the superposition of samples */
-            double sample = stringA.sample() + stringC.sample();
+            sample = stringA.sample() + stringC.sample();
 
         /* play the sample on standard audio */
             StdAudio.play(sample);
