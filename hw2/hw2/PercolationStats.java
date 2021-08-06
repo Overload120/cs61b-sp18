@@ -11,17 +11,14 @@ public class PercolationStats{
     arrOfThreshold=new int[T];
     int randomRow;
     int randomCol;
-    int threshold;
     for (int i=0;i<T;i+=1){
         Percolation test=pf.make(N);
-        threshold=0;
         while (!test.percolates()){
             randomRow= StdRandom.uniform(N);
             randomCol=StdRandom.uniform(N);
             test.open(randomRow,randomCol);
-            threshold+=1;
         }
-        arrOfThreshold[i]=threshold;
+        arrOfThreshold[i]=test.numberOfOpenSites()/(N*N);
     }
     }   // perform T independent experiments on an N-by-N grid
     public double mean(){

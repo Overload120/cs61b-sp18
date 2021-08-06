@@ -11,7 +11,7 @@ public class Percolation {
             throw new java.lang.IllegalArgumentException();
         }
         numOfOpenSites=0;
-        field=new WeightedQuickUnionUF(N*N);
+        field=new WeightedQuickUnionUF(N*N+2);
         arrIsOpen=new boolean[N][N];
         for(int i=0;i<N;i+=1){
             for (int j=0;j<N;j+=1){
@@ -27,6 +27,12 @@ public class Percolation {
             return;
         }
         arrIsOpen[row][col]=true;
+        if(row==0){
+            field.union(row*arrIsOpen.length+col,arrIsOpen.length*arrIsOpen.length);
+        }
+        if(row==arrIsOpen.length-1){
+            field.union(row*arrIsOpen.length+col,arrIsOpen.length*arrIsOpen.length+1);
+        }
         numOfOpenSites+=1;
         int currentRow;
         int currentCol;
@@ -65,30 +71,13 @@ public class Percolation {
         if(row>=arrIsOpen.length||col>=arrIsOpen[0].length||row<0||col<0){
             throw new java.lang.IndexOutOfBoundsException();
         }
-        boolean flag=false;
-        if(!arrIsOpen[row][col]){
-            return false;
-        }
-        if(row==0){
-            return true;
-        }
-        for(int i=0;i<arrIsOpen.length;i+=1){
-            if(field.connected(i,row*arrIsOpen.length+col)){
-                flag=true;
-                break;
-            }
-        }
-        return flag;
+        return field.connected(row*arrIsOpen.length+col,arrIsOpen.length*arrIsOpen.length);
     }  // is the site (row, col) full?
     public int numberOfOpenSites(){
         return numOfOpenSites;
     }           // number of open sites
     public boolean percolates(){
-        for (int i=0;i<arrIsOpen.length;i+=1){
-            if(isFull(arrIsOpen.length-1,i))
-                return true;
-        }
-        return false;
+        return field.connected(arrIsOpen.length*arrIsOpen.length+1,arrIsOpen.length*arrIsOpen.length);
     }// does the system percolate?
     public static void main(String[] args){
 
