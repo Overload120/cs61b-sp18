@@ -7,12 +7,13 @@ public class PercolationStats{
     private int[] arrOfThreshold;
 
     public PercolationStats(int N, int T, PercolationFactory pf){
-    Percolation test=pf.make(N);
+
     arrOfThreshold=new int[T];
     int randomRow;
     int randomCol;
     int threshold;
     for (int i=0;i<T;i+=1){
+        Percolation test=pf.make(N);
         threshold=0;
         while (!test.percolates()){
             randomRow= StdRandom.uniform(N);
