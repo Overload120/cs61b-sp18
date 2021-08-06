@@ -6,11 +6,13 @@ public class Percolation {
     private WeightedQuickUnionUF field;
     private boolean[][] arrIsOpen;
     private int numOfOpenSites;
+    int numOfBottomFills;
     public Percolation(int N){
         if(N<=0){
             throw new java.lang.IllegalArgumentException();
         }
         numOfOpenSites=0;
+        numOfBottomFills=0;
         field=new WeightedQuickUnionUF(N*N+2);
         arrIsOpen=new boolean[N][N];
         for(int i=0;i<N;i+=1){
@@ -30,8 +32,9 @@ public class Percolation {
         if(row==0){
             field.union(row*arrIsOpen.length+col,arrIsOpen.length*arrIsOpen.length);
         }
-        if(row==arrIsOpen.length-1){
+        if(row==arrIsOpen.length-1&&numOfBottomFills==0){
             field.union(row*arrIsOpen.length+col,arrIsOpen.length*arrIsOpen.length+1);
+            numOfBottomFills+=1;
         }
         numOfOpenSites+=1;
         int currentRow;
