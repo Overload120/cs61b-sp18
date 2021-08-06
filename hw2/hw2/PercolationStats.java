@@ -7,7 +7,9 @@ public class PercolationStats{
     private int[] arrOfThreshold;
 
     public PercolationStats(int N, int T, PercolationFactory pf){
-
+    if(N<=0||T<=0){
+        throw new java.lang.IllegalArgumentException();
+    }
     arrOfThreshold=new int[T];
     int randomRow;
     int randomCol;
