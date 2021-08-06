@@ -67,7 +67,7 @@ public class WorldFormer {
             return whichPos;
         }
     }
-
+    private static Position currentPosOfPlayer;
     private static void formRoom(Room r, TETile index, TETile[][] world){
         for(int i=r.p.getY(); i<r.p.getY()+r.yRange;i+=1){
             for(int j=r.p.getX();j<r.p.getX()+r.xRange;j+=1){
@@ -145,7 +145,7 @@ public class WorldFormer {
             connect(random,arr[0],arr[i],world);
             arr[0].timesConnect+=1;
             arr[i].timesConnect+=1;
-            if(arr[i].timesConnect>1){
+            if(arr[i].timesConnect>=3){
                 continue;
             }
             randomNum=RandomUtils.uniform(random,i,arr.length);
@@ -154,7 +154,7 @@ public class WorldFormer {
             arr[randomNum].timesConnect+=1;
         }
         for(int i=arr.length-1;i>0;i-=1){
-            if(arr[i].timesConnect>1){
+            if(arr[i].timesConnect>=3){
                 continue;
             }
             randomNum=-1*RandomUtils.uniform(random,-1*i,1);
@@ -214,6 +214,7 @@ public class WorldFormer {
             Y=RandomUtils.uniform(random,world[0].length);
         }while (world[X][Y]!=Tileset.FLOOR);
         world[X][Y]=Tileset.PLAYER;
+        currentPosOfPlayer=new Position(X,Y);
     }
     private static void formRandomDoor(Random random,TETile[][] world){
         int X;
@@ -223,6 +224,9 @@ public class WorldFormer {
             Y=RandomUtils.uniform(random,world[0].length);
         }while (world[X][Y]!=Tileset.WALL);
         world[X][Y]=Tileset.LOCKED_DOOR;
+    }
+    public static Position getCurrentPosOfPlayer(){
+        return currentPosOfPlayer;
     }
     public static TETile[][] createWorld(int width,int height,Random random){
         TETile[][] world = new TETile[width][height];
