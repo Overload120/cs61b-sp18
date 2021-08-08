@@ -7,7 +7,6 @@ public class Percolation {
     private boolean[][] arrIsOpen;
     private int numOfOpenSites;
     int numOfBottomFills;
-
     public Percolation(int N) {
         if (N <= 0) {
             throw new java.lang.IllegalArgumentException();
@@ -63,7 +62,6 @@ public class Percolation {
                 field.union(row * arrIsOpen.length + col, row * arrIsOpen.length + currentCol);
             }
         }
-
     }
 
     // open the site (row, col) if it is not open already

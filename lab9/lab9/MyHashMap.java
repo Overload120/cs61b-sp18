@@ -25,7 +25,10 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         buckets = new ArrayMap[DEFAULT_SIZE];
         this.clear();
     }
-
+    public MyHashMap(int initialSize){
+        buckets = new ArrayMap[initialSize];
+        this.clear();
+    }
     /* Removes all of the mappings from this map. */
     @Override
     public void clear() {
@@ -53,19 +56,46 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      */
     @Override
     public V get(K key) {
-        throw new UnsupportedOperationException();
+        int i=hash(key);
+        return buckets[i].get(key);
     }
 
     /* Associates the specified value with the specified key in this map. */
     @Override
     public void put(K key, V value) {
-        throw new UnsupportedOperationException();
+        int hashcode;
+        if(get(key)!=null){
+            hashcode=hash(key);
+            buckets[hashcode].put(key,value);
+            return;
+        }
+        size+=1;
+        if(loadFactor()>MAX_LF){
+            ArrayMap<K,V>[] newBuckets=new ArrayMap[2*buckets.length];
+            for (int i = 0; i < newBuckets.length; i += 1) {
+                newBuckets[i] = new ArrayMap<>();
+            }
+            System.arraycopy(buckets,0,newBuckets,0,buckets.length);
+            buckets=newBuckets;
+
+            V curValue;
+            for(int i=0;i<buckets.length/2;++i){
+                for(K curKey:buckets[i].keySet()){
+                    curValue=buckets[i].get(curKey);
+                    buckets[i].remove(curKey,curValue);
+                    hashcode=hash(curKey);
+                    newBuckets[hashcode].put(curKey,curValue);
+                }
+            }
+        }
+        hashcode=hash(key);
+        buckets[hashcode].put(key,value);
     }
 
     /* Returns the number of key-value mappings in this map. */
     @Override
     public int size() {
-        throw new UnsupportedOperationException();
+        return size;
     }
 
     //////////////// EVERYTHING BELOW THIS LINE IS OPTIONAL ////////////////
