@@ -1,4 +1,5 @@
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**
@@ -28,7 +29,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     private static int leftIndex(int i) {
         /* TODO: Your code here! */
-        return 2*i;
+        return 2 * i;
     }
 
     /**
@@ -36,7 +37,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     private static int rightIndex(int i) {
         /* TODO: Your code here! */
-        return 2*i+1;
+        return 2 * i + 1;
     }
 
     /**
@@ -44,7 +45,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     private static int parentIndex(int i) {
         /* TODO: Your code here! */
-        return i/2;
+        return i / 2;
     }
 
     /**
@@ -108,10 +109,10 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         validateSinkSwimArg(index);
 
         /** TODO: Your code here. */
-        int currentIndex=index;
-        while (currentIndex>1&&min(currentIndex,parentIndex(currentIndex))==currentIndex){
-            swap(currentIndex,parentIndex(currentIndex));
-            currentIndex=parentIndex(currentIndex);
+        int currentIndex = index;
+        while (currentIndex > 1 && min(currentIndex, parentIndex(currentIndex)) == currentIndex) {
+            swap(currentIndex, parentIndex(currentIndex));
+            currentIndex = parentIndex(currentIndex);
         }
     }
 
@@ -123,28 +124,26 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         validateSinkSwimArg(index);
 
         /** TODO: Your code here. */
-        int currentIndex=index;
-        boolean isLeftChildMin=min(currentIndex,leftIndex(currentIndex))==leftIndex(currentIndex);
-        boolean isRightChildMin=min(currentIndex,rightIndex(currentIndex))==rightIndex(currentIndex);
-        while (currentIndex<=size/2&&(isLeftChildMin||isRightChildMin)){
+        int currentIndex = index;
+        boolean isLeftChildMin = min(currentIndex, leftIndex(currentIndex)) == leftIndex(currentIndex);
+        boolean isRightChildMin = min(currentIndex, rightIndex(currentIndex)) == rightIndex(currentIndex);
+        while (currentIndex <= size / 2 && (isLeftChildMin || isRightChildMin)) {
             int minIndex;
-            if(isLeftChildMin&&isRightChildMin){
-                minIndex=min(leftIndex(currentIndex),rightIndex(currentIndex));
-                swap(currentIndex,minIndex);
-                currentIndex=minIndex;
+            if (isLeftChildMin && isRightChildMin) {
+                minIndex = min(leftIndex(currentIndex), rightIndex(currentIndex));
+                swap(currentIndex, minIndex);
+                currentIndex = minIndex;
+            } else if (isLeftChildMin) {
+                minIndex = leftIndex(currentIndex);
+                swap(currentIndex, minIndex);
+                currentIndex = minIndex;
+            } else {
+                minIndex = rightIndex(currentIndex);
+                swap(currentIndex, minIndex);
+                currentIndex = minIndex;
             }
-            else if(isLeftChildMin){
-                minIndex=leftIndex(currentIndex);
-                swap(currentIndex,minIndex);
-                currentIndex=minIndex;
-            }
-            else {
-                minIndex=rightIndex(currentIndex);
-                swap(currentIndex,minIndex);
-                currentIndex=minIndex;
-            }
-            isLeftChildMin=min(currentIndex,leftIndex(currentIndex))==leftIndex(currentIndex);
-            isRightChildMin=min(currentIndex,rightIndex(currentIndex))==rightIndex(currentIndex);
+            isLeftChildMin = min(currentIndex, leftIndex(currentIndex)) == leftIndex(currentIndex);
+            isRightChildMin = min(currentIndex, rightIndex(currentIndex)) == rightIndex(currentIndex);
         }
     }
 
@@ -160,8 +159,8 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         }
 
         /* TODO: Your code here! */
-        size+=1;
-        contents[size]=new ArrayHeap<T>.Node(item,priority);
+        size += 1;
+        contents[size] = new ArrayHeap<T>.Node(item, priority);
         swim(size);
     }
 
@@ -172,7 +171,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     @Override
     public T peek() {
         /* TODO: Your code here! */
-        if(contents[1]==null){
+        if (contents[1] == null) {
             return null;
         }
         return contents[1].myItem;
@@ -190,10 +189,10 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     @Override
     public T removeMin() {
         /* TODO: Your code here! */
-        swap(1,size);
-        T item=contents[size].myItem;
-        contents[size]=null;
-        size-=1;
+        swap(1, size);
+        T item = contents[size].myItem;
+        contents[size] = null;
+        size -= 1;
         sink(1);
         return item;
     }
@@ -215,31 +214,31 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      * bonus problem, but shouldn't be too hard if you really understand heaps
      * and think about the algorithm before you start to code.
      */
-    private int getNode(T item){
-        for(int i=1;i<=size;i+=1){
-            if(contents[i].myItem.equals(item)){
+    private int getNode(T item) {
+        for (int i = 1; i <= size; i += 1) {
+            if (contents[i].myItem.equals(item)) {
                 return i;
             }
         }
         return -1;
     }
+
     @Override
     public void changePriority(T item, double priority) {
         /* TODO: Your code here! */
-        int index=getNode(item);
-        if(index==-1){
+        int index = getNode(item);
+        if (index == -1) {
             return;
         }
-        contents[index].myPriority=priority;
-        boolean hasToSwim=index>1&&min(index,parentIndex(index))==index;
-        boolean hasToSink=index<size/2&&(min(index,leftIndex(index))==leftIndex(index)||min(index,rightIndex(index))==rightIndex(index));
-        if(hasToSwim){
+        contents[index].myPriority = priority;
+        boolean hasToSwim = index > 1 && min(index, parentIndex(index)) == index;
+        boolean hasToSink = index < size / 2 && (min(index, leftIndex(index)) == leftIndex(index) || min(index, rightIndex(index)) == rightIndex(index));
+        if (hasToSwim) {
             swim(index);
-        }
-        else if(hasToSink){
+        } else if (hasToSink) {
             sink(index);
         }
-        }
+    }
 
 
     /**
@@ -296,7 +295,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             myPriority = priority;
         }
 
-        public T item(){
+        public T item() {
             return myItem;
         }
 
@@ -311,7 +310,9 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     }
 
 
-    /** Helper function to resize the backing array when necessary. */
+    /**
+     * Helper function to resize the backing array when necessary.
+     */
     private void resize(int capacity) {
         Node[] temp = new ArrayHeap.Node[capacity];
         for (int i = 1; i < this.contents.length; i++) {
