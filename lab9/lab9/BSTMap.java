@@ -24,15 +24,6 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
             key = k;
             value = v;
         }
-        private Node(Node p){
-            if(p==null){
-                return;
-            }
-            key=p.key;
-            value=p.value;
-            left=new Node(p.left);
-            right=new Node(p.right);
-        }
     }
 
     private Node root;  /* Root node of the tree. */
@@ -41,9 +32,6 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     /* Creates an empty BSTMap. */
     public BSTMap() {
         this.clear();
-    }
-    public BSTMap(Node p){
-        root=new Node(p);
     }
     /* Removes all of the mappings from this map. */
     @Override
@@ -238,28 +226,9 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     }
 
 
-    private class BSTMapIterator implements Iterator<K>{
-        BSTMap<K,V> p;
-        BSTMapIterator(){
-            p= new BSTMap<>(root);
-        }
-        @Override
-        public boolean hasNext() {
-            return p.root==null;
-        }
 
-        @Override
-        public K next() {
-            if(hasNext()){
-                K key=p.root.key;
-                p.remove(key);
-                return key;
-            }
-            return null;
-        }
-    }
     @Override
     public Iterator<K> iterator() {
-        return new BSTMapIterator();
+        throw new UnsupportedOperationException();
     }
 }
