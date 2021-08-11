@@ -61,15 +61,4 @@ public class Solver {
         return bestPath;
     }
 
-    public static void main(String[] args) {
-        Word w1=new Word("horse","nurse");
-        Word w2=new Word("worse","nurse");
-        SearchNode n1=new SearchNode(w1,0,null);
-        SearchNode n2=new SearchNode(w2,1,n1);
-        MinPQ<SearchNode> minPQ=new MinPQ<>();
-        minPQ.insert(n1);
-        minPQ.insert(n2);
-        SearchNode temp=minPQ.delMin();
-        System.out.println(temp.currentState);
-    }
 }

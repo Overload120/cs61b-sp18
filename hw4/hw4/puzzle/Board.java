@@ -131,11 +131,8 @@ public class Board implements WorldState{
         return s.toString();
     }
 
-    public static void main(String[] args) {
-        int[][] arr={{0,1,3},{4,2,5},{7,8,6}};
-        Board b=new Board(arr);
-        System.out.println(b);
-        System.out.println(b.hamming());
-        System.out.println(b.estimatedDistanceToGoal());
+    @Override
+    public int hashCode() {
+        return 0;
     }
 }
