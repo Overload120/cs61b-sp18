@@ -100,15 +100,15 @@ public class Board implements WorldState{
         return manhattan();
     }
     public boolean equals(Object y){
-        if(this.getClass()!=y.getClass()){
-            throw new IllegalArgumentException();
+        if(y==this)return true;
+        if(y==null||this.getClass()!=y.getClass()){
+            return false;
         }
-        boolean flag;
+
         if(this.size!=((Board)y).size) return false;
         for (int i=0;i<size;i+=1){
             for (int j=0;j<size;j+=1){
-                flag=board[i][j]==((Board)y).board[i][j];
-                if(!flag) return false;
+                if(board[i][j]!=((Board)y).board[i][j]) return false;
             }
         }
         return true;
