@@ -69,15 +69,18 @@ public class QuickSort {
         if (items == null || items.size() <= 1) {
             return items;
         }
+        Queue<Item> newItems = new Queue<>();
+        for (Item x : items) {
+            newItems.enqueue(x);
+        }
         Queue<Item> less = new Queue<>();
         Queue<Item> equal = new Queue<>();
         Queue<Item> greater = new Queue<>();
-        Item pivot = getRandomItem(items);
-        partition(items, pivot, less, equal, greater);
+        Item pivot = getRandomItem(newItems);
+        partition(newItems, pivot, less, equal, greater);
         Queue<Item> sortedLess = quickSort(less);
         Queue<Item> sortedGreater = quickSort(greater);
-        items = catenate(catenate(sortedLess, equal), sortedGreater);
-        return items;
+        return catenate(catenate(sortedLess, equal), sortedGreater);
     }
 
     public static void main(String[] args) {
