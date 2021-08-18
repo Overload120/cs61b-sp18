@@ -53,7 +53,7 @@ public class Rasterer {
         double lrlat = params.get("lrlat");
         double width = params.get("w");
         boolean flag = true;
-        if (ullon < UL_LON || ullat > UL_LAT || lrlon > LR_LON || lrlat < LR_LAT || ullon > lrlon || lrlat > ullat)
+        if (lrlon < UL_LON || lrlat > UL_LAT || ullon > LR_LON || ullat < LR_LAT || ullon > lrlon || lrlat > ullat)
             flag = false;
         double lonDPP = getDPP(lrlon, ullon, width);
         int depth = getDepth(lonDPP);
@@ -127,6 +127,7 @@ public class Rasterer {
         int xul, xlr, yul, ylr;
         double lonDPP = getDefaultLonDPP(depth);
         double latDPP = getDefaultLatDPP(depth);
+        int maxValue=(int)(Math.pow(2,depth))-1;
         xul = (int) ((ulLon - UL_LON) / (lonDPP * 256));
         xlr = (int) ((lrLon - UL_LON) / (lonDPP * 256));
         yul = (int) ((UL_LAT - ulLat) / (latDPP * 256));
@@ -135,6 +136,16 @@ public class Rasterer {
         range[0][1] = xlr;
         range[1][0] = yul;
         range[1][1] = ylr;
+        for (int i=0;i<2;i+=1){
+            for (int j=0;j<2;j+=1){
+                if (range[i][j]<0){
+                    range[i][j]=0;
+                }
+                else if (range[i][j]>maxValue){
+                    range[i][j]=maxValue;
+                }
+            }
+        }
         return range;
     }
 }
