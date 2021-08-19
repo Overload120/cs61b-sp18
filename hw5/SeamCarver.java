@@ -27,57 +27,61 @@ public class SeamCarver {
         double xGradient;
         double yGradient;
         int r1, r2, b1, b2, g1, g2;
-        if (x == 0) {
-            r1 = p.get(width() - 1, y).getRed();
-            r2 = p.get(x + 1, y).getRed();
-            b1 = p.get(width() - 1, y).getBlue();
-            b2 = p.get(x + 1, y).getBlue();
-            g1 = p.get(width() - 1, y).getGreen();
-            g2 = p.get(x + 1, y).getGreen();
-        } else if (x == width() - 1) {
-            r1 = p.get(x - 1, y).getRed();
-            r2 = p.get(0, y).getRed();
-            b1 = p.get(x - 1, y).getBlue();
-            b2 = p.get(0, y).getBlue();
-            g1 = p.get(x - 1, y).getGreen();
-            g2 = p.get(0, y).getGreen();
-        } else {
-            r1 = p.get(x - 1, y).getRed();
-            r2 = p.get(x + 1, y).getRed();
-            b1 = p.get(x - 1, y).getBlue();
-            b2 = p.get(x + 1, y).getBlue();
-            g1 = p.get(x - 1, y).getGreen();
-            g2 = p.get(x + 1, y).getGreen();
-        }
-        yGradient = (r1 - r2) * (r1 - r2) + (b1 - b2) * (b1 - b2) + (g1 - g2) * (g1 - g2);
-        if (y == 0) {
-            r1 = p.get(x, height() - 1).getRed();
-            r2 = p.get(x, y + 1).getRed();
-            b1 = p.get(x, height() - 1).getBlue();
-            b2 = p.get(x, y + 1).getBlue();
-            g1 = p.get(x, height() - 1).getGreen();
-            g2 = p.get(x, y + 1).getGreen();
-        } else if (y == height() - 1) {
-            r1 = p.get(x, y - 1).getRed();
-            r2 = p.get(x, 0).getRed();
-            b1 = p.get(x, y - 1).getBlue();
-            b2 = p.get(x, 0).getBlue();
-            g1 = p.get(x, y - 1).getGreen();
-            g2 = p.get(x, 0).getGreen();
-        } else {
-            r1 = p.get(x, y - 1).getRed();
-            r2 = p.get(x, y + 1).getRed();
-            b1 = p.get(x, y - 1).getBlue();
-            b2 = p.get(x, y + 1).getBlue();
-            g1 = p.get(x, y - 1).getGreen();
-            g2 = p.get(x, y + 1).getGreen();
-        }
-        xGradient = (r1 - r2) * (r1 - r2) + (b1 - b2) * (b1 - b2) + (g1 - g2) * (g1 - g2);
+        if (width() > 1) {
+            if (x == 0) {
+                r1 = p.get(width() - 1, y).getRed();
+                r2 = p.get(x + 1, y).getRed();
+                b1 = p.get(width() - 1, y).getBlue();
+                b2 = p.get(x + 1, y).getBlue();
+                g1 = p.get(width() - 1, y).getGreen();
+                g2 = p.get(x + 1, y).getGreen();
+            } else if (x == width() - 1) {
+                r1 = p.get(x - 1, y).getRed();
+                r2 = p.get(0, y).getRed();
+                b1 = p.get(x - 1, y).getBlue();
+                b2 = p.get(0, y).getBlue();
+                g1 = p.get(x - 1, y).getGreen();
+                g2 = p.get(0, y).getGreen();
+            } else {
+                r1 = p.get(x - 1, y).getRed();
+                r2 = p.get(x + 1, y).getRed();
+                b1 = p.get(x - 1, y).getBlue();
+                b2 = p.get(x + 1, y).getBlue();
+                g1 = p.get(x - 1, y).getGreen();
+                g2 = p.get(x + 1, y).getGreen();
+            }
+            yGradient = (r1 - r2) * (r1 - r2) + (b1 - b2) * (b1 - b2) + (g1 - g2) * (g1 - g2);
+        } else yGradient = 0;
+        if (height() > 1) {
+            if (y == 0) {
+                r1 = p.get(x, height() - 1).getRed();
+                r2 = p.get(x, y + 1).getRed();
+                b1 = p.get(x, height() - 1).getBlue();
+                b2 = p.get(x, y + 1).getBlue();
+                g1 = p.get(x, height() - 1).getGreen();
+                g2 = p.get(x, y + 1).getGreen();
+            } else if (y == height() - 1) {
+                r1 = p.get(x, y - 1).getRed();
+                r2 = p.get(x, 0).getRed();
+                b1 = p.get(x, y - 1).getBlue();
+                b2 = p.get(x, 0).getBlue();
+                g1 = p.get(x, y - 1).getGreen();
+                g2 = p.get(x, 0).getGreen();
+            } else {
+                r1 = p.get(x, y - 1).getRed();
+                r2 = p.get(x, y + 1).getRed();
+                b1 = p.get(x, y - 1).getBlue();
+                b2 = p.get(x, y + 1).getBlue();
+                g1 = p.get(x, y - 1).getGreen();
+                g2 = p.get(x, y + 1).getGreen();
+            }
+            xGradient = (r1 - r2) * (r1 - r2) + (b1 - b2) * (b1 - b2) + (g1 - g2) * (g1 - g2);
+        } else xGradient = 0;
         return xGradient + yGradient;
     }            // energy of pixel at column x and row y
 
     public int[] findHorizontalSeam() {
-        Picture original = p;
+        Picture original = new Picture(p);
         p = new Picture(original.height(), original.width());
         for (int w = 0; w < p.width(); w += 1) {
             for (int h = 0; h < p.height(); h += 1) {
@@ -85,7 +89,7 @@ public class SeamCarver {
             }
         }
         int[] target = findVerticalSeam();
-        p = original;
+        p = new Picture(original);
         return target;
     }            // sequence of indices for horizontal seam
 
@@ -117,15 +121,18 @@ public class SeamCarver {
     }              // sequence of indices for vertical seam
 
     public void removeHorizontalSeam(int[] seam) {
-        p = SeamRemover.removeHorizontalSeam(p, findHorizontalSeam());
+        p = new Picture(SeamRemover.removeHorizontalSeam(p, seam));
     }   // remove horizontal seam from picture
 
     public void removeVerticalSeam(int[] seam) {
-        p = SeamRemover.removeVerticalSeam(p, findVerticalSeam());
+        p = new Picture(SeamRemover.removeVerticalSeam(p, seam));
     }     // remove vertical seam from picture
 
     private void minimumCostVertical() {
         minCostEnding = new double[height()][width()];
+        if (height() == 1) {
+
+        }
         for (int i = 0; i < height(); i += 1) {
             for (int j = 0; j < width(); j += 1) {
                 if (i == 0) {
