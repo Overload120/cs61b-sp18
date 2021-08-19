@@ -5,7 +5,7 @@ public class SeamCarver {
     private double[][] minCostEnding;
 
     public SeamCarver(Picture picture) {
-        p = picture;
+        p = new Picture(picture);
     }
 
     public Picture picture() {
@@ -130,18 +130,28 @@ public class SeamCarver {
 
     private void minimumCostVertical() {
         minCostEnding = new double[height()][width()];
-
-        for (int i = 0; i < height(); i += 1) {
-            for (int j = 0; j < width(); j += 1) {
-                if (i == 0) {
-                    minCostEnding[i][j] = energy(j, i);
-                } else if (j != 0 && j != width() - 1) {
-                    minCostEnding[i][j] = energy(j, i) + Math.min(Math.min(minCostEnding[i - 1][j - 1], minCostEnding[i - 1][j]), minCostEnding[i - 1][j + 1]);
-                } else if (j == 0) {
-                    minCostEnding[i][j] = energy(j, i) + Math.min(minCostEnding[i - 1][j], minCostEnding[i - 1][j + 1]);
-                } else if (j == width() - 1) {
-                    minCostEnding[i][j] = energy(j, i) + Math.min(minCostEnding[i - 1][j], minCostEnding[i - 1][j - 1]);
+        if (height() != 1 && width() != 1) {
+            for (int i = 0; i < height(); i += 1) {
+                for (int j = 0; j < width(); j += 1) {
+                    if (i == 0) {
+                        minCostEnding[i][j] = energy(j, i);
+                    } else if (j != 0 && j != width() - 1) {
+                        minCostEnding[i][j] = energy(j, i) + Math.min(Math.min(minCostEnding[i - 1][j - 1], minCostEnding[i - 1][j]), minCostEnding[i - 1][j + 1]);
+                    } else if (j == 0) {
+                        minCostEnding[i][j] = energy(j, i) + Math.min(minCostEnding[i - 1][j], minCostEnding[i - 1][j + 1]);
+                    } else if (j == width() - 1) {
+                        minCostEnding[i][j] = energy(j, i) + Math.min(minCostEnding[i - 1][j], minCostEnding[i - 1][j - 1]);
+                    }
                 }
+            }
+        } else if (height() == 1) {
+            for (int i = 0; i < width(); i += 1) {
+                minCostEnding[0][i] = energy(i, 0);
+            }
+        } else if (width() == 1) {
+            minCostEnding[0][0] = energy(0, 0);
+            for (int i = 1; i < height(); i += 1) {
+                minCostEnding[i][0] = energy(0, i) + minCostEnding[i - 1][0];
             }
         }
     }
